@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sayooj Mandodi</title>
+<meta name="description" content="Portfolio of Sayooj Mandodi, Senior C++ Engineer — real-time automotive and industrial vision systems, from weld-inspection robots to instrument clusters.">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000000;
+    --surface:#0A0A0A;
+    --surface-2:#111214;
+    --border:rgba(255,255,255,0.09);
+    --border-accent:rgba(74,222,128,0.25);
+    --ink:#FFFFFF;
+    --ink-soft:#A1A1AA;
+    --ink-dim:#6B7280;
+    --accent:#4ADE80;
+    --accent-dim:#22C55E;
+    --nok:#F87171;
+    --sans:'Inter', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    --mono:'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  }
+  @property --conic-angle{ syntax:'<angle>'; inherits:false; initial-value:0deg; }
+  @keyframes halo-breathe{
+    0%,100%{ box-shadow:rgba(74,222,128,.08) 0 0 0 1px, rgba(74,222,128,.45) 0 30px 80px -20px, rgba(74,222,128,.25) 0 0 60px -10px; }
+    50%{ box-shadow:rgba(74,222,128,.14) 0 0 0 1px, rgba(74,222,128,.6) 0 30px 90px -16px, rgba(74,222,128,.4) 0 0 80px -8px; }
+  }
+  @keyframes rotate-conic{ 100%{ --conic-angle:360deg; } }
+  @keyframes orb-breathe{
+    0%,100%{ transform:scale(1); box-shadow:rgba(74,222,128,.45) 0 0 20px, rgba(74,222,128,.3) 0 0 8px, rgba(255,255,255,.35) 0 0 6px inset; }
+    50%{ transform:scale(1.05); box-shadow:rgba(74,222,128,.65) 0 0 32px, rgba(74,222,128,.45) 0 0 14px, rgba(255,255,255,.45) 0 0 8px inset; }
+  }
+  @keyframes orb-ping{ 0%{ transform:scale(.9); opacity:1; } 100%{ transform:scale(1.35); opacity:0; } }
+  :root{scroll-behavior:smooth;}
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg); color:var(--ink); font-family:var(--sans);
+    margin:0;
+    padding-left:max(20px, env(safe-area-inset-left,0px));
+    padding-right:max(20px, env(safe-area-inset-right,0px));
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:var(--sans); text-wrap:balance; margin:0;}
+  a{color:inherit;}
+  p{margin:0;}
+  button{font-family:inherit; cursor:pointer;}
+  input,textarea{font-family:inherit;}
+  img{max-width:100%;}
+  ::selection{background:var(--accent); color:#000;}
+
+  .progress{position:fixed; top:env(safe-area-inset-top,0px); left:0; height:2px; background:var(--accent); z-index:50; width:0%; box-shadow:0 0 8px var(--accent);}
+
+  nav{
+    position:sticky; top:calc(env(safe-area-inset-top,0px) + 2px); z-index:40;
+    padding-block:16px; margin:0 -20px; padding-inline:20px;
+    background:rgba(0,0,0,0.75); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{max-width:1080px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:16px;}
+  .logo{display:flex; align-items:center; gap:6px; font-family:var(--mono); font-weight:600; color:var(--accent); font-size:15px; text-decoration:none; white-space:nowrap;}
+  .logo b{color:var(--accent); font-weight:600;}
+  nav ul{list-style:none; display:flex; gap:22px; margin:0; padding:0;}
+  nav ul a{text-decoration:none; color:var(--ink-soft); font-size:14px; font-weight:500; padding-bottom:4px; border-bottom:2px solid transparent;}
+  nav ul a:hover, nav ul a.active{color:var(--ink); border-color:var(--accent);}
+  .ask-pill{display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:12px; color:var(--ink-soft); border:1px solid var(--border); background:var(--surface); padding:8px 14px; border-radius:999px; white-space:nowrap;}
+  .dot{width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 6px var(--accent); flex:none;}
+  @media (prefers-reduced-motion:no-preference){ .dot.live{animation:pulse 1.8s ease-in-out infinite;} }
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+
+  main{max-width:1080px; margin:0 auto;}
+  .wrap{max-width:720px;}
+
+  section{padding-block:100px; border-top:1px solid transparent; position:relative;
+    border-image:linear-gradient(to right, transparent, var(--border) 25%, var(--border) 75%, transparent) 1;}
+  section::before{content:""; position:absolute; top:-1px; left:-20px; right:-20px; height:260px; pointer-events:none;
+    background:radial-gradient(60% 100% at 15% 0%, rgba(74,222,128,0.08), transparent 75%);}
+  .eyebrow{display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:16px;}
+  .eyebrow .dot{width:6px; height:6px;}
+
+  /* hero */
+  .hero{border-top:none; padding-top:52px; --spot-x:50%; --spot-y:50%; --spot-opacity:0;}
+
+  /* cursor-follow glow, scoped to the hero section only */
+  .hero .hero-glow{position:absolute; inset:-1px -20px 0; pointer-events:none; z-index:0;
+    background:radial-gradient(460px circle at var(--spot-x) var(--spot-y), rgba(74,222,128,.14), transparent 60%);
+    opacity:var(--spot-opacity); transition:opacity .35s ease;}
+  .hero > *:not(.hero-glow){position:relative; z-index:1;}
+  .tagline{font-family:var(--mono); font-size:13px; color:var(--ink-soft); margin-bottom:22px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .tagline .dot{width:6px; height:6px;}
+  .hero-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:40px; align-items:start;}
+  @media (max-width:860px){.hero-grid{grid-template-columns:1fr;}}
+  h1.title{font-size:clamp(36px,5.6vw,58px); font-weight:800; letter-spacing:-.02em; line-height:1.05;}
+  h1.title .g{color:var(--accent);}
+  .hero p.lead{max-width:46ch; color:var(--ink-soft); font-size:17px; margin-top:22px; line-height:1.65;}
+  .cta-row{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:8px; font-weight:600; font-size:14.5px; text-decoration:none; border:1px solid transparent;}
+  .btn-primary{background:var(--accent); color:#00250f; box-shadow:0 0 24px -2px rgba(74,222,128,.55), inset 0 0 0 1px rgba(255,255,255,.18); transition:background .2s ease, box-shadow .2s ease;}
+  .btn-primary:hover{background:#7CEBA3; box-shadow:0 0 32px -2px rgba(74,222,128,.8), inset 0 0 0 1px rgba(255,255,255,.3);}
+  .btn-ghost{border-color:var(--border); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--ink-soft);}
+  .stats{display:flex; gap:40px; margin-top:48px; flex-wrap:wrap;}
+  .stat .n{font-family:var(--mono); font-size:30px; font-weight:600; font-variant-numeric:tabular-nums;}
+  .stat .c{font-family:var(--mono); font-size:11px; color:var(--ink-dim); letter-spacing:.06em; margin-top:4px;}
+
+  /* chat panel */
+  .chat{background:var(--surface); border:1px solid rgba(74,222,128,.18); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; height:min(480px,60vh); position:relative; animation:halo-breathe 3.8s ease-in-out infinite;}
+  .chat::before{
+    content:""; position:absolute; inset:0; border-radius:inherit; padding:1.5px; pointer-events:none; opacity:.85; z-index:2;
+    background:conic-gradient(from var(--conic-angle), transparent 0deg, rgba(74,222,128,0) 25deg, rgba(74,222,128,1) 55deg, rgba(134,239,172,.85) 80deg, rgba(74,222,128,1) 105deg, rgba(74,222,128,0) 135deg, transparent 360deg);
+    -webkit-mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    animation:rotate-conic 6s linear infinite;
+  }
+  @media (prefers-reduced-motion:reduce){ .chat, .chat::before{animation:none;} }
+  .chat-head{display:flex; justify-content:space-between; align-items:center; gap:12px; padding:16px 18px; border-bottom:1px solid var(--border);}
+  .chat-head-left{display:flex; align-items:center; gap:12px; min-width:0;}
+  .chat-orb{width:30px; height:30px; border-radius:50%; flex:0 0 auto; position:relative;
+    background:linear-gradient(110deg, var(--accent) 0%, #86efac 50%, var(--accent) 100%);
+    box-shadow:rgba(74,222,128,.45) 0 0 20px, rgba(74,222,128,.3) 0 0 8px, rgba(255,255,255,.35) 0 0 6px inset;
+    animation:orb-breathe 3.6s ease-in-out infinite;}
+  .chat-orb::after{content:""; position:absolute; inset:-3px; border-radius:50%; border:1px solid rgba(74,222,128,.5); animation:orb-ping 2.4s ease infinite;}
+  @media (prefers-reduced-motion:reduce){ .chat-orb, .chat-orb::after{animation:none;} }
+  .chat-head .t{font-weight:600; font-size:14.5px;}
+  .chat-head .s{font-family:var(--mono); font-size:11px; color:var(--ink-dim); margin-top:2px;}
+  .chat-badge{display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10px; letter-spacing:.06em; color:var(--accent); border:1px solid var(--border-accent); padding:3px 8px; border-radius:999px;}
+  .chat-log{flex:1; overflow-y:auto; padding:16px 18px; display:flex; flex-direction:column; gap:14px;}
+  .msg .who{display:block; font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:4px;}
+  .msg.user .who{color:var(--accent);}
+  .msg p{font-size:14px; color:var(--ink); line-height:1.55; white-space:pre-wrap;}
+  .msg.user p{color:#D6FBE4;}
+  .chips{display:flex; gap:8px; flex-wrap:wrap; padding:0 18px 14px;}
+  .chip{font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); border:1px solid var(--border); background:transparent; padding:6px 10px; border-radius:8px;}
+  .chip:hover{border-color:var(--border-accent); color:var(--ink);}
+  .chat-input-row{display:flex; gap:10px; padding:14px; border-top:1px solid var(--border);}
+  .chat-input-row input{flex:1; background:var(--surface-2); border:1px solid var(--border); color:var(--ink); border-radius:8px; padding:11px 12px; font-size:13.5px; outline:none;}
+  .chat-input-row input:focus{border-color:var(--border-accent);}
+  .chat-send{background:var(--accent); color:#00250f; border:none; width:40px; border-radius:8px; display:flex; align-items:center; justify-content:center; flex:none;}
+  .chat-send:disabled{opacity:.4; cursor:default;}
+  .chat-note{font-family:var(--mono); font-size:11px; color:var(--ink-dim); padding:12px 18px; border-top:1px solid var(--border);}
+
+  /* universal card treatment: subtle border + a small glow accent at top-center only (not a full glowing perimeter) */
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:36px; position:relative;}
+  .card::before{content:""; position:absolute; top:0; left:50%; transform:translateX(-50%); width:80px; height:2px;
+    background:linear-gradient(to right, transparent, var(--accent), transparent); border-radius:2px; opacity:.9; pointer-events:none;}
+  #stack .card::before, .proj-card::before{display:none;}
+
+  /* about */
+  .card.about{max-width:760px; margin-inline:auto; border-radius:22px; padding:40px; text-align:left;}
+  h2.split{font-size:clamp(26px,3.4vw,36px); font-weight:700; letter-spacing:-.01em; line-height:1.2;}
+  h2.split .dim{color:var(--ink-dim);}
+  .about p{font-size:16px; color:var(--ink-soft); line-height:1.75; margin:20px 0 0; max-width:62ch;}
+  .about p.bright{color:#E4E4E7;}
+  .about a{color:var(--accent); text-decoration:underline; text-underline-offset:3px; text-decoration-color:rgba(74,222,128,.4);}
+  .about a:hover{text-decoration-color:var(--accent);}
+
+  /* stack — 5 co-equal cards, no hierarchy */
+  .stack-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:26px;}
+  @media (max-width:860px){.stack-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.stack-grid{grid-template-columns:1fr;}}
+  .stack-icon{width:34px; height:34px; border-radius:8px; background:rgba(74,222,128,0.12); display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:16px; margin-bottom:14px;}
+  .stack-title{font-weight:700; font-size:17px;}
+  .stack-sub{color:var(--ink-dim); font-size:13.5px; margin-top:3px;}
+  .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px;}
+  .tag{font-family:var(--mono); font-size:12px; color:var(--ink-soft); border:1px solid var(--border); padding:5px 10px; border-radius:6px;}
+
+  /* work */
+  h2.big{font-size:clamp(28px,4vw,40px); font-weight:800; letter-spacing:-.015em;}
+  .timeline{margin-top:36px; display:flex; flex-direction:column; gap:0;}
+  .trow{display:grid; grid-template-columns:170px 1fr; gap:24px; padding-block:30px; border-top:1px solid var(--border);}
+  .trow:first-child{border-top:none;}
+  @media (max-width:700px){.trow{grid-template-columns:1fr; gap:10px;}}
+  .twhen{display:flex; align-items:flex-start; gap:8px; font-family:var(--mono); font-size:12.5px; color:var(--ink-dim); padding-top:4px;}
+  .twhen .dot{margin-top:5px;}
+  .tcard h3{font-size:19px; font-weight:700;}
+  .tcard .meta{font-family:var(--mono); font-size:12px; color:var(--ink-dim); margin-top:4px;}
+  .tcard p.desc{color:var(--ink-soft); font-size:14.5px; margin-top:12px; max-width:64ch; line-height:1.6;}
+  .tcard ul{margin:14px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:7px;}
+  .tcard li{color:var(--ink-soft); font-size:14px; padding-left:16px; position:relative; line-height:1.5;}
+  .tcard li::before{content:"—"; position:absolute; left:0; color:var(--ink-dim);}
+
+  /* projects */
+  .proj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:30px;}
+  @media (max-width:760px){.proj-grid{grid-template-columns:1fr;}}
+  .proj-card{grid-column:span 1;}
+  .proj-card.wide{grid-column:span 3;}
+  @media (max-width:760px){.proj-card.wide{grid-column:span 1;}}
+  .proj-card{position:relative; overflow:hidden; --cx:50%; --cy:50%; transition:border-color .3s ease, background .3s ease;}
+  .proj-card::after{content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(240px circle at var(--cx) var(--cy), rgba(74,222,128,.09), transparent 60%);
+    opacity:0; transition:opacity .3s ease; border-radius:inherit;}
+  .proj-card:hover::after{opacity:1;}
+  .proj-card:hover{border-color:var(--border-accent);}
+  .proj-card > *{position:relative; z-index:1;}
+  .proj-card h3{font-size:17px; font-weight:700;}
+  .proj-sub{font-family:var(--mono); font-size:12px; color:var(--ink-dim); margin-top:4px;}
+  .proj-card p.d{color:var(--ink-soft); font-size:14px; margin-top:12px; line-height:1.6;}
+  .proj-foot{margin-top:16px; display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:11px; color:var(--ink-dim);}
+  .tag-ok, .tag-nok{font-family:var(--mono); font-size:10.5px; padding:2px 7px; border-radius:4px; font-weight:600; letter-spacing:.03em;}
+  .tag-ok{background:rgba(74,222,128,0.12); color:var(--accent);}
+  .tag-nok{background:rgba(248,113,113,0.12); color:var(--nok);}
+  .edu-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:22px;}
+  @media (max-width:760px){.edu-grid{grid-template-columns:1fr;}}
+  .edu-item{border:1px solid var(--border); border-radius:10px; padding:16px 18px;}
+  .edu-item .name{font-weight:700; font-size:14.5px; display:flex; gap:8px; align-items:baseline;}
+  .edu-item .dot{width:5px; height:5px; flex:none; margin-top:6px;}
+  .edu-item .where{font-family:var(--mono); font-size:12px; color:var(--ink-dim); margin-top:4px;}
+
+  /* contact */
+  .contact-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:20px; margin-top:32px;}
+  @media (max-width:760px){.contact-grid{grid-template-columns:1fr;}}
+  .field{margin-bottom:20px;}
+  .field label{display:block; font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--ink-dim); margin-bottom:8px;}
+  .field input, .field textarea{width:100%; background:transparent; border:none; border-bottom:1px solid var(--border); color:var(--ink); padding:8px 0; font-size:14.5px; outline:none; resize:vertical;}
+  .field input::placeholder, .field textarea::placeholder{color:var(--ink-dim);}
+  .field input:focus, .field textarea:focus{border-color:var(--accent);}
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  @media (max-width:480px){.two-col{grid-template-columns:1fr;}}
+  .send-btn{background:var(--accent); color:#00250f; border:none; padding:14px 22px; border-radius:8px; font-weight:600; font-size:14.5px; display:inline-flex; gap:8px; align-items:center; width:100%; justify-content:center;}
+  .send-btn:hover{background:#7CEBA3;}
+  .skip-card p{color:var(--ink-soft); font-size:14.5px; margin-top:14px; line-height:1.6;}
+  .contact-row{display:flex; justify-content:space-between; padding-block:14px; border-top:1px solid var(--border); font-size:14px;}
+  .contact-row .l{font-family:var(--mono); font-size:11px; color:var(--ink-dim); letter-spacing:.06em;}
+  .contact-row a{font-family:var(--mono); font-weight:600; color:var(--ink); text-decoration:none;}
+  .contact-row a:hover{color:var(--accent);}
+
+  footer{display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:12px; color:var(--ink-dim); padding-block:26px 50px; flex-wrap:wrap; gap:10px;}
+  footer a{text-decoration:none;}
+  footer a:hover{color:var(--accent);}
+
+  @media (max-width:560px){
+    nav ul{display:none;}
+    .stats{gap:26px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#top">&gt;_ <b>Sayooj</b></a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="ask-pill" href="#ask" id="navAsk"><span class="dot live"></span>Ask AI</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero" id="top">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="tagline"><span class="dot"></span>Ships production C++ <span>·</span> Builds real-time systems <span>·</span> Still checks for bad welds</div>
+    <div class="hero-grid">
+      <div>
+        <h1 class="title">Real-time systems.<br><span class="g">Zero surprises.</span></h1>
+        <p class="lead">Eight years building C++ software that watches for the thing about to go wrong — a bad weld before it ships, a message that's late before it matters. Automotive embedded, industrial vision, backend systems — and increasingly, automating whatever repeats.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#work">See the work →</a>
+          <a class="btn btn-ghost" href="#stack">What I build with</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="n" data-count="8" data-suffix="+">0</div><div class="c">YEARS IN PRODUCTION</div></div>
+          <div class="stat"><div class="n" data-count="7" data-suffix="+">0</div><div class="c">SYSTEMS SHIPPED</div></div>
+          <div class="stat"><div class="n" data-count="1">0</div><div class="c">AGENTIC AI DEVELOPER</div></div>
+        </div>
+      </div>
+
+      <div class="chat" id="ask">
+        <div class="chat-head">
+          <div class="chat-head-left">
+            <div class="chat-orb" aria-hidden="true"></div>
+            <div>
+              <div class="t">Ask about Sayooj</div>
+              <div class="s">grounded on this page · answered live by Claude</div>
+            </div>
+          </div>
+          <div class="chat-badge"><span class="dot live"></span>LIVE</div>
+        </div>
+        <div class="chat-log" id="chatLog">
+          <div class="msg bot"><span class="who">sayooj.ai</span><p>Hi — ask me anything about Sayooj's work: a specific project, his stack, or how to reach him.</p></div>
+        </div>
+        <div class="chips" id="chatChips">
+          <button class="chip" data-q="Tell me about the Toyota project.">Toyota project?</button>
+          <button class="chip" data-q="What does the Cluster IPC component do?">Cluster IPC?</button>
+          <button class="chip" data-q="How can I reach Sayooj?">How to reach him?</button>
+        </div>
+        <div class="chat-input-row" id="chatInputRow">
+          <input id="chatInput" type="text" placeholder="Ask anything — stack, projects, what he's built..." maxlength="300">
+          <button class="chat-send" id="chatSend" aria-label="Send">➤</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="card about">
+      <div class="eyebrow"><span class="dot"></span>About</div>
+      <h2 class="split">Grew up on machines. <span class="dim">Learned to code after.</span></h2>
+      <p class="bright">I grew up in Kerala with an enthusiasm for building and debugging things, and my college project was where that finally had somewhere to go — a bipedal walking robot, and the night past midnight it <a href="https://drive.google.com/file/d/1WS8fiq341XLzoq5NjUikezBxJm2--_DU/view?usp=sharing" target="_blank" rel="noopener">first took its steps</a>. That was the moment I understood where my real interest actually was: not the machine alone, but the code that gave it life.</p>
+      <p>That pulled me toward Renovus in 2017, a small vision-automation startup, where I actually mastered programming — not in a classroom, but shipping code that had to work on a real factory floor. It's where I got confident that nothing in this field is impossible if you sit with a problem long enough, and where giving life to a machine through software — watching a camera finally learn to see — is what made my interest and passion for programming peak. That instinct never left: automate the thing someone has to repeat, so they don't have to.</p>
+      <p>The systems changed shape after that — automotive embedded, real-time messaging inside a moving car — but the question stayed the same: what can this system catch or do automatically, before someone has to catch it by hand? Eight years in, I'm back in Kerala, still building around that instinct.</p>
+      <p>Lately that instinct points at LLMs — using them to automate the repeatable parts of engineering itself, like test-case drafting and code review on real-time systems. A GitHub Agentic AI Developer credential made that official this year.</p>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="eyebrow"><span class="dot"></span>Stack</div>
+    <h2 class="split">Built to watch. <span class="dim">Built to last.</span></h2>
+    <div class="stack-grid">
+      <div class="card">
+        <div class="stack-icon">⛭</div>
+        <div class="stack-title">Automotive Embedded</div>
+        <div class="stack-sub">Inside the dashboard, in real time.</div>
+        <div class="tags">
+          <span class="tag">CAN / CANoe</span><span class="tag">Instrument Cluster</span><span class="tag">Cluster IPC</span><span class="tag">QNX</span><span class="tag">Digital Cockpit</span><span class="tag">Presentation Layer Design</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="stack-icon">◎</div>
+        <div class="stack-title">Machine Vision &amp; Automation</div>
+        <div class="stack-sub">Cameras that catch what people miss.</div>
+        <div class="tags">
+          <span class="tag">Industrial Cameras</span><span class="tag">Image Processing</span><span class="tag">PLC Integration</span><span class="tag">Real-Time Sockets</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="stack-icon">☁</div>
+        <div class="stack-title">Backend &amp; Data</div>
+        <div class="stack-sub">Data and services.</div>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">REST APIs</span><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">Boost</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="stack-icon">✓</div>
+        <div class="stack-title">Systems &amp; Quality</div>
+        <div class="stack-sub">Where the C++ lives, and proof it works.</div>
+        <div class="tags">
+          <span class="tag">C++11/17/20</span><span class="tag">Embedded Linux</span><span class="tag">Multithreading</span><span class="tag">GoogleTest</span><span class="tag">Jenkins</span><span class="tag">Docker</span><span class="tag">GDB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="stack-icon">✦</div>
+        <div class="stack-title">AI Engineering</div>
+        <div class="stack-sub">Automating the repeatable parts.</div>
+        <div class="tags">
+          <span class="tag">Claude Code</span><span class="tag">GitHub Copilot</span><span class="tag">AI-Assisted Reviews</span><span class="tag">Prompt Engineering</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="eyebrow"><span class="dot"></span>Work</div>
+    <h2 class="big">Where the hours went.</h2>
+    <div class="timeline">
+      <div class="trow">
+        <div class="twhen"><span class="dot live"></span>2022 — 2025</div>
+        <div class="tcard">
+          <h3>Senior Software Engineer</h3>
+          <div class="meta">Harman International · Bengaluru · Automotive / Instrument Cluster</div>
+          <p class="desc">Owns backend components of a production instrument cluster on embedded Linux and QNX — the software between a driver's dashboard and everything the vehicle is doing underneath.</p>
+          <ul>
+            <li>Owned the presentation layer of the Cluster IPC (CIPC) component, rendering real-time data received over SPI.</li>
+            <li>Owns the Cluster-repetition component — 100+ audio alerts, silent mode, DID/JSON config</li>
+            <li>Root-caused production issues via GDB core-dump analysis in live vehicle environments</li>
+            <li>Mentored a team of 4 engineers through code review</li>
+            <li>Authored component-level requirements and design documentation ahead of implementation</li>
+          </ul>
+        </div>
+      </div>
+      <div class="trow">
+        <div class="twhen"><span class="dot" style="background:var(--ink-dim); box-shadow:none;"></span>2020 — 2022</div>
+        <div class="tcard">
+          <h3>Software Developer</h3>
+          <div class="meta">Datamatics Global Services (Robert Bosch) · Bengaluru · ADAS Simulation</div>
+          <p class="desc">Built the virtual ECU tooling Bosch used to validate ADAS logic before physical hardware existed.</p>
+          <ul>
+            <li>Multithreaded C/C++ simulation modules for Bosch's virtual ADAS ECU platform (oneSiL)</li>
+            <li>Automated integration-testing framework in Python/Robot Framework — +60% code coverage</li>
+            <li>Jenkins CI/CD running 500+ unit and 150+ integration tests daily</li>
+            <li>Migrated Protobuf → FlatBuffers in a BLF/MF4/ASC streaming pipeline</li>
+          </ul>
+        </div>
+      </div>
+      <div class="trow">
+        <div class="twhen"><span class="dot" style="background:var(--ink-dim); box-shadow:none;"></span>2019 — 2020</div>
+        <div class="tcard">
+          <h3>Software Developer</h3>
+          <div class="meta">Zagaz · Bengaluru · Blockchain Remittance</div>
+          <p class="desc">Backend services for a blockchain-based remittance platform, where transaction integrity wasn't optional.</p>
+          <ul>
+            <li>REST APIs and backend services on Linux with SHA-256 transaction integrity</li>
+            <li>PostgreSQL schema design, indexing, and query optimization at high volume</li>
+            <li>Centralized tracing module forwarding structured logs to Elasticsearch</li>
+          </ul>
+        </div>
+      </div>
+      <div class="trow">
+        <div class="twhen"><span class="dot" style="background:var(--ink-dim); box-shadow:none;"></span>2017 — 2019</div>
+        <div class="tcard">
+          <h3>Software Developer</h3>
+          <div class="meta">Renovus Vision Automation · Bengaluru · Industrial Machine Vision</div>
+          <p class="desc">End-to-end ownership of three camera-and-PLC inspection systems on real production lines — see Projects below for the systems themselves.</p>
+          <ul>
+            <li>Multithreaded C++ across capture, PLC control, and real-time socket synchronization</li>
+            <li>Cut manual inspection effort by roughly 50% across deployed systems</li>
+            <li>Worked directly with production and QA teams to validate inspection accuracy on-site</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="eyebrow"><span class="dot"></span>Projects</div>
+    <h2 class="split">Real problems. <span class="dim">Real systems.</span></h2>
+    <div class="proj-grid">
+      <div class="card proj-card wide">
+        <h3>Toyota Vision Inspection Monitoring System</h3>
+        <div class="proj-sub">Automotive body inspection</div>
+        <p class="d">A complex three-station system: a robot-mounted camera capturing every weld spot across car variants, then two more stations where an operator and a supervisor manually validate the software's results through our application.</p>
+        <div class="proj-foot"><span class="tag-ok">OK</span> auto-cleared · <span class="tag-nok">NOK</span> routed to operator · 2018–2019</div>
+      </div>
+      <div class="card proj-card">
+        <h3>Rubber O-Ring Inspection Machine</h3>
+        <div class="proj-sub">Tabletop vision rig</div>
+        <p class="d">Tabletop defect detection with two industrial cameras.</p>
+        <div class="proj-foot">Shipped · 2017</div>
+      </div>
+      <div class="card proj-card">
+        <h3>TRW Inspection-cum-Packing Machine</h3>
+        <div class="proj-sub">Inline profile &amp; length measurement</div>
+        <p class="d">In-motion measurement and sorting on a bowl-feeder line.</p>
+        <div class="proj-foot">Shipped · 2018</div>
+      </div>
+      <div class="card proj-card">
+        <h3>GymSync</h3>
+        <div class="proj-sub">Gym management &amp; registration</div>
+        <p class="d">Registration and day-to-day tools for local gym centers, built for the ones near home.</p>
+        <div class="proj-foot">In Progress</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:22px;">
+      <div class="eyebrow" style="margin-bottom:10px;"><span class="dot"></span>Education</div>
+      <h3 style="font-size:20px; font-weight:700;">Credentials.</h3>
+      <div class="edu-grid">
+        <div class="edu-item"><div class="name"><span class="dot" style="width:5px;height:5px;background:var(--accent);border-radius:50%;margin-top:6px;"></span>Master of Computer Application</div><div class="where">IGNOU</div></div>
+        <div class="edu-item"><div class="name"><span class="dot" style="width:5px;height:5px;background:var(--accent);border-radius:50%;margin-top:6px;"></span>GitHub Agentic AI Developer</div><div class="where">GitHub</div></div>
+        <div class="edu-item"><div class="name"><span class="dot" style="width:5px;height:5px;background:var(--accent);border-radius:50%;margin-top:6px;"></span>AWS Certified Machine Learning Engineer – Associate</div><div class="where">AWS · In Progress</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="eyebrow"><span class="dot"></span>Say hi</div>
+    <h2 class="split">Building something that needs eyes on it? <span style="color:var(--accent);">Let's talk.</span></h2>
+    <div class="contact-grid">
+      <form class="card" id="contactForm">
+        <div class="two-col">
+          <div class="field"><label>Name</label><input type="text" id="cName" placeholder="Your name" required></div>
+          <div class="field"><label>Email</label><input type="email" id="cEmail" placeholder="you@somewhere.com" required></div>
+        </div>
+        <div class="field"><label>Subject</label><input type="text" id="cSubject" placeholder="What this is about"></div>
+        <div class="field"><label>Message</label><textarea id="cMessage" rows="4" placeholder="Tell me what you're building, or just say hi." required></textarea></div>
+        <button type="submit" class="send-btn">Send message ➤</button>
+      </form>
+      <div class="card skip-card">
+        <h3 style="font-weight:700; font-size:17px;">Or skip the form.</h3>
+        <p>Up for a chat about real-time systems, machine vision, or anything you're building on a production line.</p>
+        <div class="contact-row"><span class="l">EMAIL</span><a href="mailto:career.sayoojmandodi@gmail.com">career.sayoojmandodi@gmail.com</a></div>
+        <div class="contact-row"><span class="l">LINKEDIN</span><a href="https://linkedin.com/in/sayooj-mandodi-cppExperte" target="_blank" rel="noopener">/in/sayooj-mandodi</a></div>
+        <div class="contact-row" style="border-bottom:1px solid var(--border);"><span class="l">BASED IN</span><span>Kerala, India</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Sayooj Mandodi. Built with Passion.</span>
+    <a href="#top">↑ Back to top</a>
+  </footer>
+</main>
+
+<script>
+(function(){
+  // cursor-follow glow, scoped to the hero section only
+  (function(){
+    var hero = document.querySelector('.hero');
+    if(!hero || window.matchMedia('(hover: none)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    hero.addEventListener('pointermove', function(e){
+      var rect = hero.getBoundingClientRect();
+      hero.style.setProperty('--spot-x', ((e.clientX - rect.left) / rect.width) * 100 + '%');
+      hero.style.setProperty('--spot-y', ((e.clientY - rect.top) / rect.height) * 100 + '%');
+      hero.style.setProperty('--spot-opacity', '1');
+    });
+    hero.addEventListener('pointerleave', function(){ hero.style.setProperty('--spot-opacity', '0'); });
+  })();
+
+  // active-section highlight in nav, mirrors scroll position
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('nav ul a[href^="#"]'));
+    var map = new Map();
+    links.forEach(function(a){
+      var target = document.getElementById(a.getAttribute('href').slice(1));
+      if(target) map.set(target, a);
+    });
+    if(!map.size || !('IntersectionObserver' in window)) return;
+    var active = null;
+    function setActive(link){
+      if(active === link) return;
+      links.forEach(function(l){ l.classList.remove('active'); });
+      if(link) link.classList.add('active');
+      active = link;
+    }
+    var io = new IntersectionObserver(function(entries){
+      var visible = entries.filter(function(e){ return e.isIntersecting; })
+        .sort(function(a,b){ return b.intersectionRatio - a.intersectionRatio; });
+      if(visible[0]) setActive(map.get(visible[0].target));
+    }, {rootMargin:'-30% 0px -55% 0px', threshold:[0,.25,.5,.75,1]});
+    map.forEach(function(_, section){ io.observe(section); });
+  })();
+
+  // per-card cursor spotlight on project cards
+  (function(){
+    if(window.matchMedia('(hover: none)').matches) return;
+    document.querySelectorAll('.proj-card').forEach(function(card){
+      card.addEventListener('pointermove', function(e){
+        var rect = card.getBoundingClientRect();
+        card.style.setProperty('--cx', ((e.clientX - rect.left) / rect.width) * 100 + '%');
+        card.style.setProperty('--cy', ((e.clientY - rect.top) / rect.height) * 100 + '%');
+      });
+    });
+  })();
+
+  // scroll progress
+  var bar = document.getElementById('progress');
+  function onScroll(){
+    var h = document.documentElement;
+    var scrolled = h.scrollTop;
+    var height = h.scrollHeight - h.clientHeight;
+    bar.style.width = (height>0 ? (scrolled/height*100) : 0) + '%';
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // stat count-up
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var stats = document.querySelectorAll('.stat .n');
+  function animateStats(){
+    stats.forEach(function(el){
+      var target = parseInt(el.getAttribute('data-count'),10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      if(reduce){ el.textContent = target + suffix; return; }
+      var start = null, dur = 900;
+      function step(ts){
+        if(!start) start = ts;
+        var p = Math.min((ts-start)/dur, 1);
+        el.textContent = Math.round(p*target) + suffix;
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  try{
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ animateStats(); io.disconnect(); } });
+    }, {threshold:0.4});
+    if(stats.length) io.observe(stats[0]);
+  }catch(e){ animateStats(); }
+
+  // mailto contact form (no backend on a static GitHub Pages site)
+  var form = document.getElementById('contactForm');
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var name = document.getElementById('cName').value.trim();
+    var email = document.getElementById('cEmail').value.trim();
+    var subject = document.getElementById('cSubject').value.trim() || 'Hello from your portfolio';
+    var message = document.getElementById('cMessage').value.trim();
+    var body = message + '\n\n— ' + name + ' (' + email + ')';
+    window.location.href = 'mailto:career.sayoojmandodi@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  });
+
+  // Ask-about-me chat, backed by the "sample" capability — only available when this page
+  // is viewed inside a Claude Artifact. On GitHub Pages, initSample() below finds no
+  // window.claude and swaps the input row for a plain "not available here" note.
+  var RULES = "You are a friendly, factual assistant embedded on Sayooj Mandodi's personal portfolio site. Answer visitor questions about Sayooj using ONLY the facts below. Keep answers short: 2-4 sentences, conversational, no bullet lists unless asked. If something is not covered by these facts, say you do not have that detail and suggest the visitor use the contact form or email career.sayoojmandodi@gmail.com directly. Never invent facts.\n\nFACTS ABOUT SAYOOJ MANDODI:\n- Senior C++ engineer, 8+ years experience, automotive and industrial machine-vision systems. Currently based in Kerala, India. Open to remote and relocation work.\n- Background: grew up in Kerala with an enthusiasm for building and debugging things. His college project was a bipedal walking robot that took its first steps past midnight — the moment he realized his real interest was the code, not just the machine. That pulled him toward Renovus in 2017, where he mastered programming on real production systems, then into automotive embedded work.\n- Education: Master of Computer Application, IGNOU.\n- Certifications: GitHub Agentic AI Developer (GitHub), listed on his LinkedIn. AWS Certified Machine Learning Engineer – Associate (in progress). He uses LLMs to automate repeatable parts of engineering work, like test-case drafting and code review.\n- Harman International, Bengaluru (Jul 2022 - Jun 2025), Senior Software Engineer: owned the presentation layer of the Cluster IPC (CIPC) component, rendering real-time data received over SPI; owns the Cluster-repetition component (100+ audio alerts, silent mode, DID/JSON config); root-causes production issues via GDB core-dump analysis; mentors 4 engineers; authored component-level requirements and design documentation ahead of implementation.\n- Datamatics Global Services / Robert Bosch, Bengaluru (Apr 2020 - Jun 2022), Software Developer: built multithreaded C/C++ simulation modules for Bosch's virtual ADAS ECU platform (oneSiL); built an automated integration-testing framework in Python/Robot Framework (+60% code coverage); Jenkins CI/CD running 500+ unit and 150+ integration tests daily; migrated Protobuf to FlatBuffers for a BLF/MF4/ASC streaming pipeline.\n- Zagaz, Bengaluru (Jun 2019 - Mar 2020), Software Developer: REST APIs and backend services on Linux for a blockchain remittance platform; SHA-256 transaction integrity; PostgreSQL schema design, indexing and query optimization; centralized tracing to Elasticsearch.\n- Renovus Vision Automation, Bengaluru (Mar 2017 - Apr 2019), Software Developer: three multithreaded C++ machine-vision systems pairing industrial cameras with PLC-controlled hardware:\n  1. Toyota Vision Inspection Monitoring System (2018-2019, built for Toyota): a complex three-station system — a robot-mounted camera capturing every weld spot across car variants, then two more stations where an operator and a supervisor manually validate the software's results through the application. PLC-triggered capture, MySQL storage, FTP image transfer between stations, Excel reporting.\n  2. Rubber O-Ring Inspection Machine (2017): tabletop rig, two USB industrial cameras, image-processing defect detection, pneumatic reject-tagging, TCP/IP PLC link, MySQL + filterable HTML reports.\n  3. TRW Inspection-cum-Packing Machine (2018): bowl-feeder line, in-motion length/profile measurement, pneumatic sorting into packed batches, UDP PLC link.\n  Across these systems, manual inspection effort was cut by roughly 50%.\n- Side project: GymSync — a gym-management and member-registration app for local gym centers, currently in progress.\n- Skills: C++ (11/14/17/20), C, Python; Embedded Linux, QNX, RTOS, multithreading, TCP/IP, UDP, sockets, IPC; REST APIs, PostgreSQL, MySQL, Boost; GoogleTest, Robot Framework, GCov/LCov, Cppcheck, Valgrind; Jenkins, Docker, Git, CMake, GDB, Intel VTune; CAN, CANoe, Instrument Cluster, ADAS/oneSiL simulation, machine vision, PLC integration, Claude Code, GitHub Copilot, AI-assisted code review, prompt engineering.\n- Contact: career.sayoojmandodi@gmail.com, linkedin.com/in/sayooj-mandodi-cppExperte.";
+
+  var log = document.getElementById('chatLog');
+  var input = document.getElementById('chatInput');
+  var sendBtn = document.getElementById('chatSend');
+  var chips = document.getElementById('chatChips');
+  var inputRow = document.getElementById('chatInputRow');
+  var turns = [];
+  var sampleFn = null;
+  var busy = false;
+
+  function addMsg(role, text){
+    var div = document.createElement('div');
+    div.className = 'msg ' + role;
+    var who = document.createElement('span');
+    who.className = 'who';
+    who.textContent = role === 'user' ? 'you' : 'sayooj.ai';
+    var p = document.createElement('p');
+    p.textContent = text;
+    div.appendChild(who); div.appendChild(p);
+    log.appendChild(div);
+    log.scrollTop = log.scrollHeight;
+    return p;
+  }
+
+  function disable(state){
+    busy = state;
+    input.disabled = state;
+    sendBtn.disabled = state;
+  }
+
+  function copyForError(code){
+    switch(code){
+      case 'not_granted': return "Chat access was declined for this view — feel free to email career.sayoojmandodi@gmail.com instead.";
+      case 'rate_limited': return "Too many questions right now — try again in a moment.";
+      case 'refused': return "I can't answer that one — try asking something about his work or stack.";
+      case 'empty_completion': return "Didn't get a clear answer there — try rephrasing.";
+      default: return "Something went wrong — try again in a moment.";
+    }
+  }
+
+  async function send(text){
+    if(!text || busy) return;
+    if(!sampleFn){
+      addMsg('bot', "Live chat isn't available in this view — email career.sayoojmandodi@gmail.com or use the form below instead.");
+      return;
+    }
+    disable(true);
+    addMsg('user', text);
+    turns.push({role:'user', content:text});
+    var p = addMsg('bot', 'Thinking…');
+    try{
+      var result = await sampleFn([{role:'user', content:RULES}].concat(turns), {
+        modelTier:'quick',
+        cache:false,
+        onText: function(u){ p.textContent = u.text; log.scrollTop = log.scrollHeight; }
+      });
+      turns.push({role:'assistant', content:result.text});
+    }catch(e){
+      p.textContent = e.text || copyForError(e.code);
+      if(!e.text){ turns.pop(); }
+    }finally{
+      disable(false);
+      input.focus();
+    }
+  }
+
+  sendBtn.addEventListener('click', function(){ var v = input.value.trim(); input.value=''; send(v); });
+  input.addEventListener('keydown', function(ev){ if(ev.key==='Enter'){ var v = input.value.trim(); input.value=''; send(v); } });
+  chips.addEventListener('click', function(ev){
+    var btn = ev.target.closest('.chip');
+    if(btn) send(btn.getAttribute('data-q'));
+  });
+  document.getElementById('navAsk').addEventListener('click', function(){ setTimeout(function(){ input.focus(); }, 400); });
+
+  (async function initSample(){
+    try{
+      if(window.claude && window.claude.use){
+        sampleFn = await window.claude.use('sample');
+      }
+    }catch(e){ sampleFn = null; }
+    if(!sampleFn){
+      var note = document.createElement('div');
+      note.className = 'chat-note';
+      note.textContent = "Live Q&A needs to be viewed inside Claude. Use the contact form below, or email career.sayoojmandodi@gmail.com directly.";
+      inputRow.replaceWith(note);
+    }
+  })();
+})();
+</script>
+</body>
+</html>
